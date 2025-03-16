@@ -2,10 +2,9 @@ const fs = require("fs");
 const express = require("express");
 const morgan = require("morgan");
 
-
 const app = express();
 
-app.use(morgan("dev"))
+app.use(morgan("dev"));
 app.use(express.json());
 app.use((req, res, next) => {
   console.log("hello from middleware");
@@ -94,9 +93,53 @@ const deleteTour = (req, res) => {
     data: null,
   });
 };
-app.route("/api/v1/tours").get(getAllTours).post(createTour);
-app.route("/api/v1/tours").get(getTour).patch(updateTour).delete(deleteTour);
+const getAllUsers = (req, res)=>{
+  res.status(500).json({
+    status: "error",
+    message: "this route is yet defined",
+  })
+}
+const createUser = (req, res)=>{
+  res.status(500).json({
+    status: "error",
+    message: "this route is yet defined",
+  })
+}
+const getUser = (req, res)=>{
+  res.status(500).json({
+    status: "error",
+    message: "this route is yet defined",
+  })
+}
+const updateUser = (req, res)=>{
+  res.status(500).json({
+    status: "error",
+    message: "this route is yet defined",
+  })
+}
+const deleteUser = (req, res)=>{
+  res.status(500).json({
+    status: "error",
+    message: "this route is yet defined",
+  })
+}
+const tourRouter = express.Router()
+const userRouter = express.Router()
+tourRouter.route("/").get(getAllTours).post(createTour);
+tourRouter
+  .route("/:id")
+  .get(getTour)
+  .patch(updateTour)
+  .delete(deleteTour);
+userRouter.route("/").get(getAllUsers).post(createUser);
+userRouter
+  .route("/:id")
+  .get(getUser)
+  .patch(updateUser)
+  .delete(deleteUser);
 
+app.use("/api/v1/tours",tourRouter)
+app.use("/api/v1/users",userRouter)
 const port = 3000;
 app.listen(port, () => {
   console.log(`App running on port: ${port}...`);
